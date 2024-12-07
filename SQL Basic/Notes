@@ -13,5 +13,27 @@ column  DataType  Constraints
 )
 
 Example:
-Create Table person
+create table person (
+	id BigSerial NOT NULL Primary Key,
+	first_name VARCHAR(50) NOT NULL,
+	last_name VARCHAR(50) NOT NULL,
+	email VARCHAR(150),
+	gender VARCHAR(7) NOT NULL,
+	date_of_birth DATE NOT NULL,
+	country VARCHAR(50) NOT NULL
+);
+
+2. Insert Into Table:
+insert into person (id, first_name, last_name, email, gender, date_of_birth, country) values (1, 'Elizabeth', 'Korneev', 'ekorneev0@blogtalkradio.com', 'Female', '2024/10/30', 'Indonesia');
+
+3. Select Data:
+Select * from person;
+
+4. Removing Duplicate:
+Select distinct country from person;
+
+
+
+
+
 
