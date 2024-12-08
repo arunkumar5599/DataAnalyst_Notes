@@ -7,7 +7,7 @@ Example: Amazon "Order,past info,& details" come from database.
 SQL : Structure Query Language ,it is used to store,manipulate,retrive data from relational 
 database.
 ----------------
-1. Create Table:
+1.Create Table:
 Create Table Table_Name(
 column  DataType  Constraints
 )
