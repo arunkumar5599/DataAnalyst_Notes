@@ -7,7 +7,7 @@ Example: Amazon "Order,past info,& details" come from database.
 SQL : Structure Query Language ,it is used to store,manipulate,retrive data from relational 
 database.
 ----------------
-1.Create Table:
+🟡1.Create Table:
 Create Table Table_Name(
 column  DataType  Constraints
 )
@@ -23,17 +23,103 @@ create table person (
 	country VARCHAR(50) NOT NULL
 );
 
-2. Insert Into Table:
+🟡2. Insert Into Table:
 insert into person (id, first_name, last_name, email, gender, date_of_birth, country) values (1, 'Elizabeth', 'Korneev', 'ekorneev0@blogtalkradio.com', 'Female', '2024/10/30', 'Indonesia');
 
-3. Select Data:
+🟡3. Select Data:
 Select * from person;
 
-4. Removing Duplicate:
+🟡4. Removing Duplicate:
 Select distinct country from person;
 
+🟡5. Comperison Operator:
+test=# Select 1=1 ;
+ ?column?
+----------
+ t
+(1 row)
+test=# Select 1<2;
+ ?column?
+----------
+ t
+(1 row)
+test=# Select 1>2;
+ ?column?
+----------
+ f
+(1 row)
+test=# SELECT 'ARUN'<>'ARUN';
+ ?column?
+----------
+ f
+(1 row)
 
 
+test=# SELECT 'ARUN'<>'arun';
+ ?column?
+----------
+ t
+(1 row)
 
+🟡 6. Limit OffSet and Fetch:
+test=# SELECT * FROM person limit 5;
+ id | first_name | last_name  |            email            |   gender   | date_of_birth |  country
+----+------------+------------+-----------------------------+------------+---------------+-----------
+  1 | Elizabeth  | Korneev    | ekorneev0@blogtalkradio.com | Female     | 2024-10-30    | Indonesia
+  2 | Car        | Blackhurst |                             | Male       | 2024-08-28    | Namibia
+  3 | Whittaker  | Mosedall   | wmosedall2@php.net          | Polygender | 2024-11-19    | Brazil
+  4 | Lane       | Keates     | lkeates3@ihg.com            | Male       | 2024-04-05    | China
+  5 | Toddie     | Rolfo      | trolfo4@reddit.com          | Male       | 2024-12-01    | China
+(5 rows)
+
+
+test=# SELECT * FROM person OFFSET 5 limit 5;
+ id | first_name |  last_name  |              email              |   gender    | date_of_birth |    country
+----+------------+-------------+---------------------------------+-------------+---------------+---------------
+  6 | Rosette    | Pickerell   | rpickerell5@cnet.com            | Polygender  | 2024-07-18    | Philippines
+  7 | Noah       | Lashmore    | nlashmore6@examiner.com         | Male        | 2024-08-14    | Brazil
+  8 | Matthew    | Dombrell    | mdombrell7@pagesperso-orange.fr | Male        | 2024-07-09    | United States
+  9 | Selestina  | Elgood      | selgood8@telegraph.co.uk        | Female      | 2024-06-27    | China
+ 10 | Giulia     | Castellanos | gcastellanos9@example.com       | Genderqueer | 2024-10-20    | Nepal
+(5 rows)
+
+test=# SELECT * FROM person OFFSET 5 FETCH FIRST 5 ROW ONLY;
+ id | first_name |  last_name  |              email              |   gender    | date_of_birth |    country
+----+------------+-------------+---------------------------------+-------------+---------------+---------------
+  6 | Rosette    | Pickerell   | rpickerell5@cnet.com            | Polygender  | 2024-07-18    | Philippines
+  7 | Noah       | Lashmore    | nlashmore6@examiner.com         | Male        | 2024-08-14    | Brazil
+  8 | Matthew    | Dombrell    | mdombrell7@pagesperso-orange.fr | Male        | 2024-07-09    | United States
+  9 | Selestina  | Elgood      | selgood8@telegraph.co.uk        | Female      | 2024-06-27    | China
+ 10 | Giulia     | Castellanos | gcastellanos9@example.com       | Genderqueer | 2024-10-20    | Nepal
+(5 rows) 
+
+🟡 7. IN
+test=# SELECT * FROM person where country in ('China','Nepal') fetch first 10 row only;
+ id | first_name |  last_name  |           email           |   gender    | date_of_birth | country
+----+------------+-------------+---------------------------+-------------+---------------+---------
+  4 | Lane       | Keates      | lkeates3@ihg.com          | Male        | 2024-04-05    | China
+  5 | Toddie     | Rolfo       | trolfo4@reddit.com        | Male        | 2024-12-01    | China
+  9 | Selestina  | Elgood      | selgood8@telegraph.co.uk  | Female      | 2024-06-27    | China
+ 10 | Giulia     | Castellanos | gcastellanos9@example.com | Genderqueer | 2024-10-20    | Nepal
+ 12 | Ulrika     | Ware        | uwareb@admin.ch           | Female      | 2024-08-01    | China
+ 22 | Edythe     | Walton      | ewaltonl@mit.edu          | Female      | 2023-12-08    | China
+ 31 | Euell      | Vigus       |                           | Male        | 2024-07-06    | China
+ 35 | Rockwell   | Bewshea     |                           | Genderqueer | 2024-02-25    | China
+ 41 | Kalinda    | Gemmill     | kgemmill14@usatoday.com   | Female      | 2024-06-25    | China
+ 42 | Corine     | Harmston    |                           | Female      | 2024-04-16    | China
+(10 rows)
+🟡 8. BETWEEN
+test=# SELECT * FROM person where ID  BETWEEN 5 AND 10;
+ id | first_name |  last_name  |              email              |   gender    | date_of_birth |    country
+----+------------+-------------+---------------------------------+-------------+---------------+---------------
+  5 | Toddie     | Rolfo       | trolfo4@reddit.com              | Male        | 2024-12-01    | China
+  6 | Rosette    | Pickerell   | rpickerell5@cnet.com            | Polygender  | 2024-07-18    | Philippines
+  7 | Noah       | Lashmore    | nlashmore6@examiner.com         | Male        | 2024-08-14    | Brazil
+  8 | Matthew    | Dombrell    | mdombrell7@pagesperso-orange.fr | Male        | 2024-07-09    | United States
+  9 | Selestina  | Elgood      | selgood8@telegraph.co.uk        | Female      | 2024-06-27    | China
+ 10 | Giulia     | Castellanos | gcastellanos9@example.com       | Genderqueer | 2024-10-20    | Nepal
+(6 rows)
+
+🟡 9. LIKE
 
 
