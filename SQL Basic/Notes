@@ -121,5 +121,86 @@ test=# SELECT * FROM person where ID  BETWEEN 5 AND 10;
 (6 rows)
 
 🟡 9. LIKE
+test=# SELECT * FROM person where email like '%.com%' fetch first 10 row only;
+ id | first_name |  last_name  |               email               |   gender    | date_of_birth |   country
+----+------------+-------------+-----------------------------------+-------------+---------------+-------------
+  1 | Elizabeth  | Korneev     | ekorneev0@blogtalkradio.com       | Female      | 2024-10-30    | Indonesia
+  4 | Lane       | Keates      | lkeates3@ihg.com                  | Male        | 2024-04-05    | China  5 | Toddie     | Rolfo       | trolfo4@reddit.com                | Male        | 2024-12-01    | China  6 | Rosette    | Pickerell   | rpickerell5@cnet.com              | Polygender  | 2024-07-18    | Philippines
+  7 | Noah       | Lashmore    | nlashmore6@examiner.com           | Male        | 2024-08-14    | Brazil
+ 10 | Giulia     | Castellanos | gcastellanos9@example.com         | Genderqueer | 2024-10-20    | Nepal 14 | Kylynn     | de Quincey  | kdequinceyd@businessweek.com      | Female      | 2024-09-15    | Mexico
+ 24 | Joe        | Bottomer    | jbottomern@scientificamerican.com | Male        | 2024-08-28    | Lithuania
+ 25 | Purcell    | Grundon     | pgrundono@nba.com                 | Polygender  | 2024-06-24    | Japan 29 | Noami      | Bexley      | nbexleys@addthis.com              | Female      | 2024-06-28    | Pakistan
+(10 rows)
+
+test=# SELECT * FROM person where email like '_________@nba.com%' fetch first 10 row only;
+ id | first_name | last_name |       email       |   gender   | date_of_birth | country
+----+------------+-----------+-------------------+------------+---------------+---------
+ 25 | Purcell    | Grundon   | pgrundono@nba.com | Polygender | 2024-06-24    | Japan
+(1 row)
+
+🟡 10. GROUP BY
+test=# SELECT COUNTRY, COUNT(COUNTRY) FROM person group by country limit 10;
+    country     | count
+----------------+-------
+ Bangladesh     |     4
+ Indonesia      |   106
+ Mayotte        |     1
+ Venezuela      |     7
+ Cameroon       |     2
+ Luxembourg     |     3
+ Czech Republic |    16
+ Sweden         |    23
+ Uganda         |     4
+ Jordan         |     1
+(10 rows)
+
+
+test=# SELECT COUNTRY, COUNT(*) FROM person group by country limit 10;
+    country     | count
+----------------+-------
+ Bangladesh     |     4
+ Indonesia      |   106
+ Mayotte        |     1
+ Venezuela      |     7
+ Cameroon       |     2
+ Luxembourg     |     3
+ Czech Republic |    16
+ Sweden         |    23
+ Uganda         |     4
+ Jordan         |     1
+(10 rows)
+
+🟡 11. Having Clause
+test=# SELECT COUNTRY, COUNT(*) FROM person group by country having count(country)>=5 limit 10;
+      country       | count
+--------------------+-------
+ Indonesia          |   106
+ Venezuela          |     7
+ Czech Republic     |    16
+ Sweden             |    23
+ Dominican Republic |     5
+ Ireland            |     6
+ Finland            |     8
+ Portugal           |    30
+ Colombia           |    16
+ Ukraine            |    13
+(10 rows)
+
+
+test=# SELECT COUNTRY, COUNT(*) FROM person group by country having count(*)>=5 limit 10;
+      country       | count
+--------------------+-------
+ Indonesia          |   106
+ Venezuela          |     7
+ Czech Republic     |    16
+ Sweden             |    23
+ Dominican Republic |     5
+ Ireland            |     6
+ Finland            |     8
+ Portugal           |    30
+ Colombia           |    16
+ Ukraine            |    13
+🟡 12. 
+
 
 
