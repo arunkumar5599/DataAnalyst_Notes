@@ -200,7 +200,45 @@ test=# SELECT COUNTRY, COUNT(*) FROM person group by country having count(*)>=5 
  Portugal           |    30
  Colombia           |    16
  Ukraine            |    13
-🟡 12. 
+🟡 12. MIN,MAX ,SUM & AVG
+test=# select MAX(price) from car;
+     max
+--------------
+ $99994703.47
+(1 row)
+
+
+test=# select MIN(price) from car;
+     min
+--------------
+ $10269975.44
+(1 row)
+test=# select AVG(id) from car;
+         avg
+----------------------
+ 500.5000000000000000
+(1 row)
+test=# select SUM(id) from car;
+  sum
+--------
+ 500500
+(1 row)
+
+🟡 13.Arithmetic Operation
+test=# SELECT 5+5 as "Sum";
+ Sum
+-----
+  10
+(1 row)
+
+
+test=# SELECT 5-5 as "Subtract";
+ Subtract
+----------
+        0
+(1 row)
+
+2:05 mins
 
 
 
