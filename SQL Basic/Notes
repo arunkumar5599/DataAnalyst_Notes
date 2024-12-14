@@ -238,7 +238,52 @@ test=# SELECT 5-5 as "Subtract";
         0
 (1 row)
 
-2:05 mins
+🟡 14. ALIAS
+test=# SELECT id, make, model AS "Brand Name"  from car limit 3;
+ id |  make  |  Brand Name
+----+--------+--------------
+  1 | Toyota | Camry Hybrid
+  2 | GMC    | Savana 1500
+  3 | BMW    | 600
+(3 rows)
+
+🟡 15.Coalesce
+"How to handle null values"
+test=# Select coalesce(null) from car limit 3;
+ coalesce
+----------
+
+
+
+(3 rows)
+
+
+test=# Select coalesce(1) from car limit 3;
+ coalesce
+----------
+        1
+        1
+        1
+(3 rows)
+
+
+test=# Select coalesce(null,1) from car limit 3;
+ coalesce
+----------
+        1
+        1
+        1
+(3 rows)
+
+
+test=# Select coalesce(null,null,1) from car limit 3;
+ coalesce
+----------
+        1
+        1
+        1
+(3 rows)
+🟡 16.
 
 
 
