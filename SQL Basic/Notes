@@ -283,7 +283,224 @@ test=# Select coalesce(null,null,1) from car limit 3;
         1
         1
 (3 rows)
-🟡 16.
+
+test=# SELECT * FROM person limit 5;
+ id | first_name | last_name  |            email            |   gender   | date_of_birth |  country
+----+------------+------------+-----------------------------+------------+---------------+-----------
+  1 | Elizabeth  | Korneev    | ekorneev0@blogtalkradio.com | Female     | 2024-10-30    | Indonesia
+  2 | Car        | Blackhurst |                             | Male       | 2024-08-28    | Namibia
+  3 | Whittaker  | Mosedall   | wmosedall2@php.net          | Polygender | 2024-11-19    | Brazil
+  4 | Lane       | Keates     | lkeates3@ihg.com            | Male       | 2024-04-05    | China
+  5 | Toddie     | Rolfo      | trolfo4@reddit.com          | Male       | 2024-12-01    | China
+(5 rows)
+
+
+test=# SELECT email FROM person limit 5;
+            email
+-----------------------------
+ ekorneev0@blogtalkradio.com
+
+ wmosedall2@php.net
+ lkeates3@ihg.com
+ trolfo4@reddit.com
+(5 rows)
+test=# SELECT coalesce(email) FROM person limit 5;
+          coalesce
+-----------------------------
+ ekorneev0@blogtalkradio.com
+
+ wmosedall2@php.net
+ lkeates3@ihg.com
+ trolfo4@reddit.com
+(5 rows)
+
+
+test=# SELECT coalesce(email,'Email is not provided.') FROM person limit 5;
+          coalesce
+-----------------------------
+ ekorneev0@blogtalkradio.com
+ Email is not provided.
+ wmosedall2@php.net
+ lkeates3@ihg.com
+ trolfo4@reddit.com
+(5 rows)
+
+🟡 16. NULLIF
+
+public class Main
+{
+	public static void main(String[] args) {
+		System.out.println("Hello World"+ 10/0);
+	}
+}
+Output:
+Exception in thread "main" java.lang.ArithmeticException: / by zero
+        at Main.main(Main.java:12)
+
+Similar Error will happen in ProsgresSQL
+test=# SELECT 10/0;
+ERROR:  division by zero
+@How can resolve?
+test=# SELECT NULLIF(0,0) ;
+ nullif
+--------
+
+(1 row)
+
+
+test=# SELECT NULLIF(1,0) ;
+ nullif
+--------
+      1
+(1 row)
+
+
+test=# SELECT NULLIF(2,0) ;
+ nullif
+--------
+      2
+(1 row)
+
+
+test=# SELECT 10/NULLIF(1,0) ;
+ ?column?
+----------
+       10
+(1 row)
+
+
+test=# SELECT 10/NULLIF(0,0) ;
+ ?column?
+----------
+
+(1 row)
+
+
+test=# SELECT COALESCE(10/NULLIF(0,0),0) ;
+ coalesce
+----------
+        0
+(1 row)
+ 
+🟡 17. Timestamps and dates:
+test=# SELECT NOW();
+               now
+----------------------------------
+ 2024-12-14 20:48:12.796237+05:30
+(1 row)
+
+
+test=# SELECT NOW()::Date;
+    now
+------------
+ 2024-12-14
+(1 row)
+
+
+test=# SELECT NOW()::Time;
+       now
+-----------------
+ 20:49:07.137848
+(1 row)
+
+🟡 18. Adding & Subtracting Date
+test=# SELECT NOW()- INTERVAL '1, YEAR';
+             ?column?
+----------------------------------
+ 2023-12-14 20:54:43.781057+05:30
+(1 row)
+
+
+test=# SELECT NOW()- INTERVAL '12, YEARS';
+             ?column?
+----------------------------------
+ 2012-12-14 20:54:53.776785+05:30
+(1 row)
+
+
+test=# SELECT NOW()- INTERVAL '25, YEARS';
+             ?column?
+----------------------------------
+ 1999-12-14 20:55:10.731969+05:30
+(1 row)
+
+
+test=# SELECT NOW()- INTERVAL '10, MONTHS';
+             ?column?
+----------------------------------
+ 2024-02-14 20:55:39.986297+05:30
+(1 row)
+
+
+test=# SELECT NOW()- INTERVAL '10, DAYS';
+             ?column?
+----------------------------------
+ 2024-12-04 20:55:51.865854+05:30
+(1 row)
+
+
+test=# SELECT NOW()::DATE - INTERVAL '10, DAYS';
+      ?column?
+---------------------
+ 2024-12-04 00:00:00
+(1 row)
+test=# SELECT (NOW()- INTERVAL '10, DAYS')::DATE AS DATE;
+    date
+------------
+ 2024-12-04
+(1 row)
+🟡 19.EXTRACT
+test=# SELECT EXTRACT(YEAR FROM NOW());
+ extract
+---------
+    2024
+(1 row)
+
+
+test=# SELECT EXTRACT(MONTH FROM NOW());
+ extract
+---------
+      12
+(1 row)
+
+
+test=# SELECT EXTRACT(DAY FROM NOW());
+ extract
+---------
+      14
+(1 row)
+
+
+test=# SELECT EXTRACT(CENTURY FROM NOW());
+ extract
+---------
+      21
+(1 row)
+🟡 20. Age Function
+test=# SELECT Age(Now(),date('1999-05-05')) As "ArunKumar's Age" from person limit 1;
+            ArunKumar's Age
+----------------------------------------
+ 25 years 7 mons 9 days 21:36:51.232571
+(1 row)
+
+🟡 21.Primary Key:
+-----------------------
+A primary key in SQL is a column or a combination of columns that uniquely identifies each row in a table. It ensures that the values in the primary key are both unique and not null for each record in the table.
+ Example:
+sql
+Copy code
+CREATE TABLE employees (
+    employee_id INT PRIMARY KEY, 
+    name VARCHAR(100)
+);
+In this example, employee_id is the primary key, ensuring that each employee has a unique identifier.
+
+Purpose:
+To uniquely identify records in a table.
+To establish relationships between tables (via foreign key)
+
+
+
 
 
 
